@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Operación Funza</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+font-family:'Segoe UI',sans-serif;
+}
+
+body{
+margin:0;
+background:linear-gradient(135deg,#0b2545,#1f4f7a,#2c7bb6);
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
+
+.container{
+width:100%;
+max-width:1100px;
+background:white;
+border-radius:16px;
+padding:40px;
+box-shadow:0 25px 70px rgba(0,0,0,0.35);
+}
+
+.header{
+display:flex;
+flex-direction:column;
+align-items:center;
+text-align:center;
+margin-bottom:30px;
+border-bottom:1px solid #eee;
+padding-bottom:20px;
+}
+
+.logo{
+height:120px;
+object-fit:contain;
+margin-bottom:10px;
+}
+
+.title{
+font-size:26px;
+font-weight:700;
+color:#0b2545;
+}
+
+.subtitle{
+font-size:14px;
+color:#666;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:18px;
+}
+
+.field{
+display:flex;
+flex-direction:column;
+}
+
+label{
+font-size:13px;
+font-weight:600;
+margin-bottom:6px;
+}
+
+input,select{
+padding:12px;
+border-radius:8px;
+border:1px solid #ccc;
+font-size:14px;
+}
+
+input:focus,select:focus{
+outline:none;
+border-color:#2c7bb6;
+box-shadow:0 0 5px rgba(44,123,182,0.3);
+}
+
+.timer-box{
+margin-top:30px;
+background:#f3f7fb;
+padding:20px;
+border-radius:12px;
+text-align:center;
+}
+
+.timer-title{
+font-size:13px;
+color:#777;
+}
+
+.timer{
+font-size:36px;
+font-weight:bold;
+color:#0b2545;
+margin-top:5px;
+}
+
+.buttons{
+margin-top:25px;
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
+
+button{
+flex:1;
+padding:16px;
+border:none;
+border-radius:10px;
+font-size:16px;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+.start{
+background:#27ae60;
+color:white;
+}
+
+.start:hover{
+background:#219150;
+}
+
+.stop{
+background:#e74c3c;
+color:white;
+}
+
+.stop:hover{
+background:#c0392b;
+}
+
+.notificacion{
+position:fixed;
+top:20px;
+right:20px;
+padding:16px 26px;
+border-radius:10px;
+color:white;
+font-weight:600;
+transform:translateX(400px);
+transition:0.4s;
+box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+.notificacion.show{
+transform:translateX(0);
+}
+
+.success{
+background:#27ae60;
+}
+
+.error{
+background:#e74c3c;
+}
+
+@media(max-width:900px){
+.grid{
+grid-template-columns:1fr 1fr;
+}
+}
+
+@media(max-width:600px){
+.container{
+padding:25px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.logo{
+height:90px;
+}
+
+.timer{
+font-size:28px;
+}
+
+button{
+width:100%;
+}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="header">
+
+<img src="/inlotrans.png" class="logo">
+
+<div class="title">Sistema Operación Funza</div>
+
+<div class="subtitle">Registro Logístico de Cargue / Descargue</div>
+
+</div>
+
+<div class="grid">
+
+<div class="field">
+<label>Motivo</label>
+<select id="motivo">
+<option>Seleccione</option>
+<option>Cargue</option>
+<option>Descargue</option>
+</select>
+</div>
+
+<div class="field">
+<label>Placa</label>
+<input id="placa" placeholder="ABC123">
+</div>
+
+<div class="field">
+<label>Tipo Vehículo</label>
+<select id="vehiculo">
+<option>Seleccione</option>
+<option>Van extralargo</option>
+<option>Camión sencillo furgonado</option>
+<option>Camabaja furgonado</option>
+<option>Tractomula furgonado</option>
+<option>Exportacion 35</option>
+<option>Exportacion 40</option>
+<option>Cama baja con topes</option>
+<option>Camión sencillo carpado</option>
+<option>Camabaja estandar</option>
+<option>Otro</option>
+</select>
+</div>
+
+<div class="field">
+<label>Destino</label>
+<select id="destino">
+<option>Cali</option>
+<option>Bucaramanga</option>
+<option>Pereira</option>
+<option>Medellin</option>
+<option>Barranquilla</option>
+<option>Funza</option>
+<option>Innova</option>
+</select>
+</div>
+
+<div class="field">
+<label>Muelle</label>
+<select id="muelle">
+<option>10</option>
+<option>11</option>
+<option>12</option>
+<option>13</option>
+<option>14</option>
+<option>15</option>
+<option>16</option>
+<option>17</option>
+<option>18</option>
+<option>19</option>
+<option>20</option>
+</select>
+</div>
+
+<div class="field">
+<label>Líder Operación</label>
+<select id="lider">
+<option>Anderson Molina</option>
+<option>Wilmer Abril</option>
+<option>Joan León</option>
+<option>Leidy Torres</option>
+<option>Duvan Correo</option>
+</select>
+</div>
+
+<div class="field">
+<label>Cantidad</label>
+<input type="number" id="cantidad">
+</div>
+
+<div class="field">
+<label>Cajas Movidas</label>
+<input type="number" id="cajas">
+</div>
+
+<div class="field">
+<label>Número de Personas</label>
+<select id="personas">
+<option value="">Seleccione</option>
+<script>
+for(let i=1;i<=20;i++){
+document.write(`<option value="${i}">${i}</option>`)
+}
+</script>
+</select>
+</div>
+
+</div>
+
+<div class="timer-box">
+
+<div class="timer-title">Tiempo de Operación</div>
+<div class="timer" id="timer">00:00:00</div>
+
+</div>
+
+<div class="buttons">
+
+<button class="start" onclick="iniciar()">INICIAR OPERACIÓN</button>
+
+<button class="stop" onclick="finalizar()">FINALIZAR OPERACIÓN</button>
+
+</div>
+
+</div>
+
+<div id="notificacion" class="notificacion"></div>
+
+<script>
+
+let inicio
+let intervalo
+
+function iniciar(){
+
+inicio=new Date()
+
+intervalo=setInterval(()=>{
+
+let ahora=new Date()
+let diff=ahora-inicio
+
+let h=Math.floor(diff/3600000)
+let m=Math.floor((diff%3600000)/60000)
+let s=Math.floor((diff%60000)/1000)
+
+document.getElementById("timer").innerText=
+String(h).padStart(2,"0")+":"+
+String(m).padStart(2,"0")+":"+
+String(s).padStart(2,"0")
+
+},1000)
+
+mostrarNotificacion("Operación iniciada","success")
+
+}
+
+function finalizar(){
+
+clearInterval(intervalo)
+
+let fin=new Date()
+
+let data={
+
+motivo:document.getElementById("motivo").value,
+placa:document.getElementById("placa").value,
+vehiculo:document.getElementById("vehiculo").value,
+destino:document.getElementById("destino").value,
+muelle:document.getElementById("muelle").value,
+lider:document.getElementById("lider").value,
+cantidad:document.getElementById("cantidad").value,
+cajas:document.getElementById("cajas").value,
+personas:document.getElementById("personas").value,
+inicio:inicio,
+fin:fin
+
+}
+
+fetch("AQUI_TU_SCRIPT_URL",{
+method:"POST",
+body:JSON.stringify(data)
+})
+.then(()=>{
+mostrarNotificacion("Registro guardado correctamente","success")
+})
+.catch(()=>{
+mostrarNotificacion("Error al guardar","error")
+})
+
+}
+
+function mostrarNotificacion(mensaje,tipo){
+
+let box=document.getElementById("notificacion")
+
+box.innerText=mensaje
+box.className="notificacion show "+tipo
+
+setTimeout(()=>{
+box.classList.remove("show")
+},3000)
+
+}
+
+</script>
+
+</body>
+</html>
