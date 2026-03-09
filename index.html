@@ -179,6 +179,7 @@ grid-template-columns:1fr 1fr;
 }
 
 @media(max-width:600px){
+
 .container{
 padding:25px;
 }
@@ -198,6 +199,7 @@ font-size:28px;
 button{
 width:100%;
 }
+
 }
 
 </style>
@@ -296,8 +298,8 @@ width:100%;
 </div>
 
 <div class="field">
-<label>Cantidad</label>
-<input type="number" id="cantidad">
+<label>Cantidad de Estibas</label>
+<input type="number" id="estibas" placeholder="Número de estibas">
 </div>
 
 <div class="field">
@@ -351,7 +353,7 @@ let vehiculo=document.getElementById("vehiculo").value
 let destino=document.getElementById("destino").value
 let muelle=document.getElementById("muelle").value
 let lider=document.getElementById("lider").value
-let cantidad=document.getElementById("cantidad").value
+let estibas=document.getElementById("estibas").value
 let cajas=document.getElementById("cajas").value
 let personas=document.getElementById("personas").value
 
@@ -362,7 +364,7 @@ vehiculo==="Seleccione" ||
 destino==="" ||
 muelle==="" ||
 lider==="" ||
-cantidad==="" ||
+estibas==="" ||
 cajas==="" ||
 personas===""){
 mostrarNotificacion("Debes llenar todos los campos","error")
@@ -426,7 +428,7 @@ vehiculo:document.getElementById("vehiculo").value,
 destino:document.getElementById("destino").value,
 muelle:document.getElementById("muelle").value,
 lider:document.getElementById("lider").value,
-cantidad:document.getElementById("cantidad").value,
+estibas:document.getElementById("estibas").value,
 cajas:document.getElementById("cajas").value,
 personas:document.getElementById("personas").value,
 inicio:inicio,
