@@ -254,6 +254,7 @@ width:100%;
 <div class="field">
 <label>Destino</label>
 <select id="destino">
+<option value="">Seleccione</option>
 <option>Cali</option>
 <option>Bucaramanga</option>
 <option>Pereira</option>
@@ -267,6 +268,7 @@ width:100%;
 <div class="field">
 <label>Muelle</label>
 <select id="muelle">
+<option value="">Seleccione</option>
 <option>10</option>
 <option>11</option>
 <option>12</option>
@@ -284,6 +286,7 @@ width:100%;
 <div class="field">
 <label>Líder Operación</label>
 <select id="lider">
+<option value="">Seleccione</option>
 <option>Anderson Molina</option>
 <option>Wilmer Abril</option>
 <option>Joan León</option>
@@ -326,7 +329,6 @@ document.write(`<option value="${i}">${i}</option>`)
 <div class="buttons">
 
 <button class="start" onclick="iniciar()">INICIAR OPERACIÓN</button>
-
 <button class="stop" onclick="finalizar()">FINALIZAR OPERACIÓN</button>
 
 </div>
@@ -337,12 +339,51 @@ document.write(`<option value="${i}">${i}</option>`)
 
 <script>
 
-let inicio
-let intervalo
+let inicio=null
+let intervalo=null
+let operacionIniciada=false
+
+function validarCampos(){
+
+let motivo=document.getElementById("motivo").value
+let placa=document.getElementById("placa").value
+let vehiculo=document.getElementById("vehiculo").value
+let destino=document.getElementById("destino").value
+let muelle=document.getElementById("muelle").value
+let lider=document.getElementById("lider").value
+let cantidad=document.getElementById("cantidad").value
+let cajas=document.getElementById("cajas").value
+let personas=document.getElementById("personas").value
+
+if(
+motivo==="Seleccione" ||
+placa==="" ||
+vehiculo==="Seleccione" ||
+destino==="" ||
+muelle==="" ||
+lider==="" ||
+cantidad==="" ||
+cajas==="" ||
+personas===""){
+mostrarNotificacion("Debes llenar todos los campos","error")
+return false
+}
+
+return true
+
+}
 
 function iniciar(){
 
+if(!validarCampos()) return
+
+if(operacionIniciada){
+mostrarNotificacion("La operación ya fue iniciada","error")
+return
+}
+
 inicio=new Date()
+operacionIniciada=true
 
 intervalo=setInterval(()=>{
 
@@ -360,11 +401,18 @@ String(s).padStart(2,"0")
 
 },1000)
 
-mostrarNotificacion("Operación iniciada","success")
+mostrarNotificacion("Operación iniciada correctamente","success")
 
 }
 
 function finalizar(){
+
+if(!operacionIniciada){
+mostrarNotificacion("Debes iniciar la operación primero","error")
+return
+}
+
+if(!validarCampos()) return
 
 clearInterval(intervalo)
 
@@ -391,10 +439,17 @@ method:"POST",
 body:JSON.stringify(data)
 })
 .then(()=>{
-mostrarNotificacion("Registro guardado correctamente","success")
+
+mostrarNotificacion("Operación registrada correctamente","success")
+
+operacionIniciada=false
+document.getElementById("timer").innerText="00:00:00"
+
 })
 .catch(()=>{
-mostrarNotificacion("Error al guardar","error")
+
+mostrarNotificacion("Error al guardar la operación","error")
+
 })
 
 }
