@@ -3,448 +3,500 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Operación Funza</title>
+    <title>Operación Funza</title>
 
-<style>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
 
-*{
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
-}
+        body {
+            margin: 0;
+            background: linear-gradient(135deg, #0b2545, #1f4f7a, #2c7bb6);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
 
-body{
-margin:0;
-background:linear-gradient(135deg,#0b2545,#1f4f7a,#2c7bb6);
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-}
+        .container {
+            width: 100%;
+            max-width: 1100px;
+            background: white;
+            border-radius: 16px;
+            padding: 35px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
 
-.container{
-width:100%;
-max-width:1100px;
-background:white;
-border-radius:16px;
-padding:35px;
-box-shadow:0 20px 60px rgba(0,0,0,0.3);
-}
+        /* HEADER */
 
-/* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
 
-.header{
-text-align:center;
-margin-bottom:25px;
-border-bottom:1px solid #eee;
-padding-bottom:20px;
-}
+        .logo {
+            height: 110px;
+            margin-bottom: 10px;
+        }
 
-.logo{
-height:110px;
-margin-bottom:10px;
-}
+        .title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #0b2545;
+        }
 
-.title{
-font-size:26px;
-font-weight:700;
-color:#0b2545;
-}
+        .subtitle {
+            font-size: 14px;
+            color: #666;
+        }
 
-.subtitle{
-font-size:14px;
-color:#666;
-}
+        /* GRID */
 
-/* GRID */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
 
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:16px;
-}
+        .field {
+            display: flex;
+            flex-direction: column;
+        }
 
-.field{
-display:flex;
-flex-direction:column;
-}
+        label {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
 
-label{
-font-size:13px;
-font-weight:600;
-margin-bottom:5px;
-}
+        input,
+        select {
+            padding: 11px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
 
-input,select{
-padding:11px;
-border-radius:8px;
-border:1px solid #ccc;
-font-size:14px;
-}
+        /* PERSONAS */
 
-/* PERSONAS */
+        .personas-box {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 12px;
+        }
 
-.personas-box{
-margin-top:15px;
-display:grid;
-grid-template-columns:1fr 1fr 1fr;
-gap:12px;
-}
+        /* TIMER */
 
-/* TIMER */
+        .timer-box {
+            margin-top: 25px;
+            background: #f3f7fb;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
 
-.timer-box{
-margin-top:25px;
-background:#f3f7fb;
-padding:20px;
-border-radius:12px;
-text-align:center;
-}
+        .timer {
+            font-size: 38px;
+            font-weight: bold;
+            color: #0b2545;
+        }
 
-.timer{
-font-size:38px;
-font-weight:bold;
-color:#0b2545;
-}
+        /* BOTONES */
 
-/* BOTONES */
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            gap: 15px;
+        }
 
-.buttons{
-margin-top:25px;
-display:flex;
-gap:15px;
-}
+        button {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
 
-button{
-flex:1;
-padding:16px;
-border:none;
-border-radius:10px;
-font-size:16px;
-font-weight:600;
-cursor:pointer;
-}
+        .start {
+            background: #27ae60;
+            color: white;
+        }
 
-.start{
-background:#27ae60;
-color:white;
-}
+        .stop {
+            background: #e74c3c;
+            color: white;
+        }
 
-.stop{
-background:#e74c3c;
-color:white;
-}
+        /* ALERTAS */
 
-/* ALERTAS */
+        .notificacion {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 26px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            transform: translateX(400px);
+            transition: 0.4s;
+        }
 
-.notificacion{
-position:fixed;
-top:20px;
-right:20px;
-padding:16px 26px;
-border-radius:10px;
-color:white;
-font-weight:600;
-transform:translateX(400px);
-transition:0.4s;
-}
+        .notificacion.show {
+            transform: translateX(0);
+        }
 
-.notificacion.show{
-transform:translateX(0);
-}
+        .success {
+            background: #27ae60;
+        }
 
-.success{background:#27ae60;}
-.error{background:#e74c3c;}
+        .error {
+            background: #e74c3c;
+        }
 
-/* TABLET */
+        /* TABLET */
 
-@media(max-width:900px){
+        @media(max-width:900px) {
 
-.grid{
-grid-template-columns:1fr 1fr;
-}
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
 
-.personas-box{
-grid-template-columns:1fr 1fr;
-}
+            .personas-box {
+                grid-template-columns: 1fr 1fr;
+            }
 
-}
+        }
 
-/* CELULAR */
+        /* CELULAR */
 
-@media(max-width:600px){
+        @media(max-width:600px) {
 
-body{
-align-items:flex-start;
-}
+            body {
+                align-items: flex-start;
+            }
 
-.container{
-padding:25px;
-}
+            .container {
+                padding: 25px;
+            }
 
-.logo{
-height:85px;
-}
+            .logo {
+                height: 85px;
+            }
 
-.title{
-font-size:20px;
-}
+            .title {
+                font-size: 20px;
+            }
 
-.grid{
-grid-template-columns:1fr;
-}
+            .grid {
+                grid-template-columns: 1fr;
+            }
 
-.personas-box{
-grid-template-columns:1fr;
-}
+            .personas-box {
+                grid-template-columns: 1fr;
+            }
 
-.buttons{
-flex-direction:column;
-}
+            .buttons {
+                flex-direction: column;
+            }
 
-button{
-width:100%;
-}
+            button {
+                width: 100%;
+            }
 
-.timer{
-font-size:32px;
-}
+            .timer {
+                font-size: 32px;
+            }
 
-}
-
-</style>
+        }
+    </style>
 
 </head>
 
 <body>
 
-<div class="container">
+    <div class="container">
 
-<div class="header">
+        <div class="header">
 
-<img src="/inlotrans.png" class="logo">
+            <img src="/inlotrans.png" class="logo">
 
-<div class="title">Sistema Operación Funza</div>
-<div class="subtitle">Registro Logístico de Cargue / Descargue</div>
+            <div class="title">Sistema Operación Funza</div>
+            <div class="subtitle">Registro Logístico de Cargue / Descargue</div>
 
-</div>
+        </div>
 
-<div class="grid">
+        <div class="grid">
 
-<div class="field">
-<label>Motivo</label>
-<select id="motivo">
-<option value="">Seleccione</option>
-<option>Cargue</option>
-<option>Descargue</option>
-</select>
-</div>
+            <div class="field">
+                <label>Motivo</label>
+                <select id="motivo">
+                    <option value="">Seleccione</option>
+                    <option>Cargue</option>
+                    <option>Descargue</option>
+                </select>
+            </div>
 
-<div class="field">
-<label>Placa</label>
-<input id="placa" placeholder="ABC123">
-</div>
+            <div class="field">
+                <label>Placa</label>
+                <input id="placa" placeholder="ABC123">
+            </div>
 
-<div class="field">
-<label>Tipo Vehículo</label>
-<select id="vehiculo">
-<option value="">Seleccione</option>
-<option>Van extralargo</option>
-<option>Camión sencillo</option>
-<option>Tractomula</option>
-</select>
-</div>
+            <div class="field">
+                <label>Tipo Vehículo</label>
+                <select id="vehiculo">
+                    <option value="">Seleccione</option>
+                    <option>Van extralargo</option>
+                    <option>Camión sencillo</option>
+                    <option>Tractomula</option>
+                </select>
+            </div>
 
-<div class="field">
-<label>Destino</label>
-<select id="destino">
-<option value="">Seleccione</option>
-<option>Cali</option>
-<option>Medellin</option>
-<option>Barranquilla</option>
-<option>Funza</option>
-</select>
-</div>
+            <div class="field">
+                <label>Destino</label>
+                <select id="destino">
+                    <option value="">Seleccione</option>
+                    <option>Cali</option>
+                    <option>Medellin</option>
+                    <option>Barranquilla</option>
+                    <option>Funza</option>
+                </select>
+            </div>
 
-<div class="field">
-<label>Muelle</label>
-<select id="muelle">
-<option value="">Seleccione</option>
-<option>10</option>
-<option>11</option>
-<option>12</option>
-<option>13</option>
-<option>14</option>
-<option>15</option>
-</select>
-</div>
+            <div class="field">
+                <label>Muelle</label>
+                <select id="muelle">
+                    <option value="">Seleccione</option>
+                    <option>10</option>
+                    <option>11</option>
+                    <option>12</option>
+                    <option>13</option>
+                    <option>14</option>
+                    <option>15</option>
+                </select>
+            </div>
 
-<div class="field">
-<label>Líder Operación</label>
-<select id="lider">
-<option value="">Seleccione</option>
-<option>Anderson Molina</option>
-<option>Wilmer Abril</option>
-<option>Joan León</option>
-</select>
-</div>
+            <div class="field">
+                <label>Líder Operación</label>
+                <select id="lider">
+                    <option value="">Seleccione</option>
+                    <option>Anderson Molina</option>
+                    <option>Wilmer Abril</option>
+                    <option>Joan León</option>
+                </select>
+            </div>
 
-<div class="field">
-<label>Cantidad de Estibas</label>
-<input type="number" id="estibas">
-</div>
+            <div class="field">
+                <label>Cantidad de Estibas</label>
+                <input type="number" id="estibas">
+            </div>
 
-<div class="field">
-<label>Cajas Movidas</label>
-<input type="number" id="cajas">
-</div>
+            <div class="field">
+                <label>Cajas Movidas</label>
+                <input type="number" id="cajas">
+            </div>
 
-<div class="field">
-<label>Número de Personas</label>
-<select id="personas" onchange="crearCamposPersonas()">
-<option value="">Seleccione</option>
+            <div class="field">
+                <label>Número de Personas</label>
+                <select id="personas" onchange="crearCamposPersonas()">
+                    <option value="">Seleccione</option>
 
-<script>
-for(let i=1;i<=20;i++){
-document.write(`<option value="${i}">${i}</option>`)
-}
-</script>
+                    <script>
+                        for (let i = 1; i <= 20; i++) {
+                            document.write(`<option value="${i}">${i}</option>`)
+                        }
+                    </script>
 
-</select>
-</div>
+                </select>
+            </div>
 
-</div>
+        </div>
 
-<div id="listaPersonas" class="personas-box"></div>
+        <div id="listaPersonas" class="personas-box"></div>
 
-<div class="timer-box">
+        <div class="timer-box">
 
-<div class="timer" id="timer">00:00:00</div>
+            <div class="timer" id="timer">00:00:00</div>
 
-</div>
+        </div>
 
-<div class="buttons">
+        <div class="buttons">
 
-<button class="start" onclick="iniciar()">INICIAR OPERACIÓN</button>
-<button class="stop" onclick="finalizar()">FINALIZAR OPERACIÓN</button>
+            <button class="start" onclick="iniciar()">INICIAR OPERACIÓN</button>
+            <button class="stop" onclick="finalizar()">FINALIZAR OPERACIÓN</button>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
-<div id="notificacion" class="notificacion"></div>
+    <div id="notificacion" class="notificacion"></div>
 
-<script>
+    <script>
 
-let inicio=null
-let intervalo=null
-let operacionIniciada=false
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz7RSNJ0xh_mlxrquaaIaYi3pmd7pMQFtSyE9z0Wwi4VqyMKYjg9meFRLIKb57oaH55/exec"
 
-function crearCamposPersonas(){
+        let inicio = null
+        let intervalo = null
+        let operacionIniciada = false
 
-let cantidad=document.getElementById("personas").value
-let contenedor=document.getElementById("listaPersonas")
+        function formatearTiempo(diffMs) {
 
-contenedor.innerHTML=""
+            let h = Math.floor(diffMs / 3600000)
+            let m = Math.floor((diffMs % 3600000) / 60000)
+            let s = Math.floor((diffMs % 60000) / 1000)
 
-for(let i=1;i<=cantidad;i++){
+            return String(h).padStart(2, "0") + ":" +
+                String(m).padStart(2, "0") + ":" +
+                String(s).padStart(2, "0")
 
-let campo=document.createElement("div")
-campo.className="field"
+        }
 
-campo.innerHTML=`
+        function crearCamposPersonas() {
+
+            let cantidad = document.getElementById("personas").value
+            let contenedor = document.getElementById("listaPersonas")
+
+            contenedor.innerHTML = ""
+
+            for (let i = 1; i <= cantidad; i++) {
+
+                let campo = document.createElement("div")
+                campo.className = "field"
+
+                campo.innerHTML = `
 <label>Persona ${i}</label>
 <input type="text" class="personaNombre" placeholder="Nombre">
 `
 
-contenedor.appendChild(campo)
+                contenedor.appendChild(campo)
 
-}
+            }
 
-}
+        }
 
-function iniciar(){
+        function iniciar() {
 
-inicio=new Date()
-operacionIniciada=true
+            if (operacionIniciada) {
+                mostrarNotificacion("La operación ya fue iniciada", "error")
+                return
+            }
 
-intervalo=setInterval(()=>{
+            inicio = new Date()
+            operacionIniciada = true
 
-let ahora=new Date()
-let diff=ahora-inicio
+            intervalo = setInterval(() => {
 
-let h=Math.floor(diff/3600000)
-let m=Math.floor((diff%3600000)/60000)
-let s=Math.floor((diff%60000)/1000)
+                let ahora = new Date()
+                let diff = ahora - inicio
 
-document.getElementById("timer").innerText=
-String(h).padStart(2,"0")+":"+
-String(m).padStart(2,"0")+":"+
-String(s).padStart(2,"0")
+                document.getElementById("timer").innerText = formatearTiempo(diff)
 
-},1000)
+            }, 1000)
 
-mostrarNotificacion("Operación iniciada","success")
+            mostrarNotificacion("Operación iniciada", "success")
 
-}
+        }
 
-function finalizar(){
+        async function finalizar() {
 
-if(!operacionIniciada){
-mostrarNotificacion("Debes iniciar la operación primero","error")
-return
-}
+            if (!operacionIniciada) {
+                mostrarNotificacion("Debes iniciar la operación primero", "error")
+                return
+            }
 
-clearInterval(intervalo)
+            clearInterval(intervalo)
 
-let nombres=[]
+            let fin = new Date()
+            let tiempoTranscurrido = formatearTiempo(fin - inicio)
+            document.getElementById("timer").innerText = tiempoTranscurrido
 
-document.querySelectorAll(".personaNombre").forEach(input=>{
-nombres.push(input.value)
-})
+            let nombres = []
 
-let data={
+            document.querySelectorAll(".personaNombre").forEach(input => {
+                nombres.push(input.value.trim())
+            })
 
-motivo:document.getElementById("motivo").value,
-placa:document.getElementById("placa").value,
-vehiculo:document.getElementById("vehiculo").value,
-destino:document.getElementById("destino").value,
-muelle:document.getElementById("muelle").value,
-lider:document.getElementById("lider").value,
-estibas:document.getElementById("estibas").value,
-cajas:document.getElementById("cajas").value,
-personas:nombres,
-inicio:inicio,
-fin:new Date()
+            nombres = nombres.filter(nombre => nombre !== "")
 
-}
+            let payload = {
+                columna1: document.getElementById("motivo").value,
+                columna2: document.getElementById("placa").value,
+                columna3: document.getElementById("vehiculo").value,
+                columna4: document.getElementById("destino").value,
+                columna5: document.getElementById("muelle").value,
+                columna6: document.getElementById("lider").value,
+                columna7: document.getElementById("estibas").value,
+                columna8: document.getElementById("cajas").value,
+                columna9: document.getElementById("personas").value,
+                columna10: nombres.join(", "),
+                columna11: tiempoTranscurrido
+            }
 
-console.log(data)
+            if (!APPS_SCRIPT_URL) {
+                console.log("Configura APPS_SCRIPT_URL para enviar datos", payload)
+                mostrarNotificacion("Falta configurar la URL de Apps Script", "error")
+                operacionIniciada = false
+                return
+            }
 
-mostrarNotificacion("Registro guardado correctamente","success")
+            try {
 
-operacionIniciada=false
-document.getElementById("timer").innerText="00:00:00"
+                let respuesta = await fetch(APPS_SCRIPT_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: {
+                        "Content-Type": "text/plain;charset=utf-8"
+                    },
+                    body: JSON.stringify(payload)
+                })
 
-}
+                console.log("Resultado envío Apps Script", {
+                    ok: respuesta.ok,
+                    status: respuesta.status,
+                    statusText: respuesta.statusText,
+                    tipoRespuesta: respuesta.type,
+                    payloadEnviado: payload
+                })
 
-function mostrarNotificacion(mensaje,tipo){
+                mostrarNotificacion("Registro guardado correctamente", "success")
 
-let box=document.getElementById("notificacion")
+            } catch (error) {
 
-box.innerText=mensaje
-box.className="notificacion show "+tipo
+                console.error("Error enviando a Apps Script", error)
+                mostrarNotificacion("Error enviando el registro", "error")
 
-setTimeout(()=>{
-box.classList.remove("show")
-},3000)
+            }
 
-}
+            operacionIniciada = false
+            document.getElementById("timer").innerText = "00:00:00"
 
-</script>
+        }
+
+        function mostrarNotificacion(mensaje, tipo) {
+
+            let box = document.getElementById("notificacion")
+
+            box.innerText = mensaje
+            box.className = "notificacion show " + tipo
+
+            setTimeout(() => {
+                box.classList.remove("show")
+            }, 3000)
+
+        }
+
+    </script>
 
 </body>
+
 </html>
