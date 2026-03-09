@@ -30,23 +30,21 @@ width:100%;
 max-width:1100px;
 background:white;
 border-radius:16px;
-padding:40px;
-box-shadow:0 25px 70px rgba(0,0,0,0.35);
+padding:35px;
+box-shadow:0 20px 60px rgba(0,0,0,0.3);
 }
 
+/* HEADER */
+
 .header{
-display:flex;
-flex-direction:column;
-align-items:center;
 text-align:center;
-margin-bottom:30px;
+margin-bottom:25px;
 border-bottom:1px solid #eee;
 padding-bottom:20px;
 }
 
 .logo{
-height:120px;
-object-fit:contain;
+height:110px;
 margin-bottom:10px;
 }
 
@@ -61,10 +59,12 @@ font-size:14px;
 color:#666;
 }
 
+/* GRID */
+
 .grid{
 display:grid;
 grid-template-columns:1fr 1fr 1fr;
-gap:18px;
+gap:16px;
 }
 
 .field{
@@ -75,22 +75,29 @@ flex-direction:column;
 label{
 font-size:13px;
 font-weight:600;
-margin-bottom:6px;
+margin-bottom:5px;
 }
 
 input,select{
-padding:12px;
+padding:11px;
 border-radius:8px;
 border:1px solid #ccc;
 font-size:14px;
 }
 
+/* PERSONAS */
+
 .personas-box{
-margin-top:20px;
+margin-top:15px;
+display:grid;
+grid-template-columns:1fr 1fr 1fr;
+gap:12px;
 }
 
+/* TIMER */
+
 .timer-box{
-margin-top:30px;
+margin-top:25px;
 background:#f3f7fb;
 padding:20px;
 border-radius:12px;
@@ -98,10 +105,12 @@ text-align:center;
 }
 
 .timer{
-font-size:36px;
+font-size:38px;
 font-weight:bold;
 color:#0b2545;
 }
+
+/* BOTONES */
 
 .buttons{
 margin-top:25px;
@@ -119,8 +128,17 @@ font-weight:600;
 cursor:pointer;
 }
 
-.start{background:#27ae60;color:white;}
-.stop{background:#e74c3c;color:white;}
+.start{
+background:#27ae60;
+color:white;
+}
+
+.stop{
+background:#e74c3c;
+color:white;
+}
+
+/* ALERTAS */
 
 .notificacion{
 position:fixed;
@@ -134,9 +152,68 @@ transform:translateX(400px);
 transition:0.4s;
 }
 
-.notificacion.show{transform:translateX(0);}
+.notificacion.show{
+transform:translateX(0);
+}
+
 .success{background:#27ae60;}
 .error{background:#e74c3c;}
+
+/* TABLET */
+
+@media(max-width:900px){
+
+.grid{
+grid-template-columns:1fr 1fr;
+}
+
+.personas-box{
+grid-template-columns:1fr 1fr;
+}
+
+}
+
+/* CELULAR */
+
+@media(max-width:600px){
+
+body{
+align-items:flex-start;
+}
+
+.container{
+padding:25px;
+}
+
+.logo{
+height:85px;
+}
+
+.title{
+font-size:20px;
+}
+
+.grid{
+grid-template-columns:1fr;
+}
+
+.personas-box{
+grid-template-columns:1fr;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+button{
+width:100%;
+}
+
+.timer{
+font-size:32px;
+}
+
+}
 
 </style>
 
@@ -151,7 +228,7 @@ transition:0.4s;
 <img src="/inlotrans.png" class="logo">
 
 <div class="title">Sistema Operación Funza</div>
-<div class="subtitle">Registro Logístico</div>
+<div class="subtitle">Registro Logístico de Cargue / Descargue</div>
 
 </div>
 
@@ -160,7 +237,7 @@ transition:0.4s;
 <div class="field">
 <label>Motivo</label>
 <select id="motivo">
-<option>Seleccione</option>
+<option value="">Seleccione</option>
 <option>Cargue</option>
 <option>Descargue</option>
 </select>
@@ -168,14 +245,15 @@ transition:0.4s;
 
 <div class="field">
 <label>Placa</label>
-<input id="placa">
+<input id="placa" placeholder="ABC123">
 </div>
 
 <div class="field">
 <label>Tipo Vehículo</label>
 <select id="vehiculo">
-<option>Seleccione</option>
-<option>Camión</option>
+<option value="">Seleccione</option>
+<option>Van extralargo</option>
+<option>Camión sencillo</option>
 <option>Tractomula</option>
 </select>
 </div>
@@ -183,26 +261,34 @@ transition:0.4s;
 <div class="field">
 <label>Destino</label>
 <select id="destino">
-<option>Funza</option>
+<option value="">Seleccione</option>
 <option>Cali</option>
 <option>Medellin</option>
+<option>Barranquilla</option>
+<option>Funza</option>
 </select>
 </div>
 
 <div class="field">
 <label>Muelle</label>
 <select id="muelle">
+<option value="">Seleccione</option>
 <option>10</option>
 <option>11</option>
 <option>12</option>
+<option>13</option>
+<option>14</option>
+<option>15</option>
 </select>
 </div>
 
 <div class="field">
-<label>Líder</label>
+<label>Líder Operación</label>
 <select id="lider">
+<option value="">Seleccione</option>
 <option>Anderson Molina</option>
 <option>Wilmer Abril</option>
+<option>Joan León</option>
 </select>
 </div>
 
@@ -220,17 +306,19 @@ transition:0.4s;
 <label>Número de Personas</label>
 <select id="personas" onchange="crearCamposPersonas()">
 <option value="">Seleccione</option>
+
 <script>
 for(let i=1;i<=20;i++){
 document.write(`<option value="${i}">${i}</option>`)
 }
 </script>
+
 </select>
 </div>
 
 </div>
 
-<div class="personas-box" id="listaPersonas"></div>
+<div id="listaPersonas" class="personas-box"></div>
 
 <div class="timer-box">
 
@@ -240,8 +328,8 @@ document.write(`<option value="${i}">${i}</option>`)
 
 <div class="buttons">
 
-<button class="start" onclick="iniciar()">INICIAR</button>
-<button class="stop" onclick="finalizar()">FINALIZAR</button>
+<button class="start" onclick="iniciar()">INICIAR OPERACIÓN</button>
+<button class="stop" onclick="finalizar()">FINALIZAR OPERACIÓN</button>
 
 </div>
 
@@ -268,8 +356,8 @@ let campo=document.createElement("div")
 campo.className="field"
 
 campo.innerHTML=`
-<label>Nombre Persona ${i}</label>
-<input type="text" class="personaNombre">
+<label>Persona ${i}</label>
+<input type="text" class="personaNombre" placeholder="Nombre">
 `
 
 contenedor.appendChild(campo)
@@ -306,22 +394,29 @@ mostrarNotificacion("Operación iniciada","success")
 function finalizar(){
 
 if(!operacionIniciada){
-mostrarNotificacion("Debes iniciar primero","error")
+mostrarNotificacion("Debes iniciar la operación primero","error")
 return
 }
 
 clearInterval(intervalo)
 
 let nombres=[]
+
 document.querySelectorAll(".personaNombre").forEach(input=>{
 nombres.push(input.value)
 })
 
 let data={
 
-personas:nombres,
+motivo:document.getElementById("motivo").value,
+placa:document.getElementById("placa").value,
+vehiculo:document.getElementById("vehiculo").value,
+destino:document.getElementById("destino").value,
+muelle:document.getElementById("muelle").value,
+lider:document.getElementById("lider").value,
 estibas:document.getElementById("estibas").value,
 cajas:document.getElementById("cajas").value,
+personas:nombres,
 inicio:inicio,
 fin:new Date()
 
@@ -329,7 +424,10 @@ fin:new Date()
 
 console.log(data)
 
-mostrarNotificacion("Registro guardado","success")
+mostrarNotificacion("Registro guardado correctamente","success")
+
+operacionIniciada=false
+document.getElementById("timer").innerText="00:00:00"
 
 }
 
